@@ -1,0 +1,14 @@
+{
+    "name": "audetv/control-desk",
+    "description": "Control Desk App",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": "^8.1"
+    },
+    "authors": [
+        {
+            "name": "Aleksey Gusev"
+        }
+    ]
+}
