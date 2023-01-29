@@ -21,7 +21,7 @@ docker-build:
 build: build-gateway build-frontend build-api
 
 build-gateway:
-	docker --log-level=debug build --pull --file=gateway/docker/production/nginx/Dockerfile --tag=${REGISTRY}/control-desk-gateway:${IMAGE_TAG} gateway/docker/production/nginx
+	docker --log-level=debug build --pull --file=gateway/docker/production/nginx/Dockerfile --tag=${REGISTRY}/control-desk-gateway:${IMAGE_TAG} gateway/docker
 
 build-frontend:
 	docker --log-level=debug build --pull --file=frontend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/control-desk-frontend:${IMAGE_TAG} frontend
@@ -32,3 +32,15 @@ build-api:
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
+
+push: push-gateway push-frontend push-api
+
+push-gateway:
+	docker push ${REGISTRY}/control-desk-gateway:${IMAGE_TAG}
+
+push-frontend:
+	docker push ${REGISTRY}/control-desk-frontend:${IMAGE_TAG}
+
+push-api:
+	docker push ${REGISTRY}/control-desk-api:${IMAGE_TAG}
+	docker push ${REGISTRY}/control-desk-api-php-fpm:${IMAGE_TAG}
