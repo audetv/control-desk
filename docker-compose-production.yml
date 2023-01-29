@@ -26,3 +26,6 @@ services:
   api-php-fpm:
     image: ${REGISTRY}/control-desk-api-php-fpm:${IMAGE_TAG}
     restart: always
+
+  api-php-cli:
+    image: ${REGISTRY}/control-desk-api-php-cli:${IMAGE_TAG}

@@ -28,7 +28,7 @@ build-frontend:
 
 build-api:
 	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/control-desk-api-php-fpm:${IMAGE_TAG} api
-	docker --log-level=debug build --pull --file=api/docker/production/nginx/Dockerfile --tag=${REGISTRY}/control-desk-api:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/control-desk-api-php-cli:${IMAGE_TAG} api
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
@@ -44,6 +44,7 @@ push-frontend:
 push-api:
 	docker push ${REGISTRY}/control-desk-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/control-desk-api-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/control-desk-api-php-cli:${IMAGE_TAG}
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf control-desk_${BUILD_NUMBER}'
