@@ -57,3 +57,8 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'rm -f control-desk'
 	ssh ${HOST} -p ${PORT} 'ln -sr control-desk_${BUILD_NUMBER} control-desk'
 
+rollback:
+	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
+	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'rm -f control-desk'
+	ssh ${HOST} -p ${PORT} 'ln -sr control-desk_${BUILD_NUMBER} control-desk'
