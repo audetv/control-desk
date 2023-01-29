@@ -1,0 +1,4 @@
+certbot_email: mail@audetv.ru
+certbot_hosts:
+  - control-desk.audetv.ru
+  - api.control-desk.audetv.ru
