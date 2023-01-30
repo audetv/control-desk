@@ -14,6 +14,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
 
 $app->get('/', function (Request $request, Response $response, $args) {
+    throw new \Slim\Exception\HttpNotFoundException($request);
     $response->getBody()->write('{}');
     return $response->withHeader('Content-Type', 'application/json');
 });
