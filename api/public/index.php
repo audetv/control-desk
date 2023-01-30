@@ -33,11 +33,8 @@ $container = $builder->build();
  * ContainerInterface стандарта psr7
  */
 $app = AppFactory::createFromContainer($container);
-/**
- * Передаем значение параметра displayErrorDetails из контейнера
- */
-$app->addErrorMiddleware($container->get('config')['debug'], true, true);
 
+(require __DIR__ . '/../config/middleware.php')($app, $container);
 (require __DIR__ . '/../config/routes.php')($app);
 
 $app->run();
