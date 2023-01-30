@@ -5,9 +5,8 @@ declare(strict_types=1);
 use DI\Container;
 use DI\ContainerBuilder;
 use App\Http;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Factory\AppFactory;
-use Slim\Psr7\Factory\ResponseFactory;
-
 
 http_response_code(500);
 
@@ -23,9 +22,7 @@ $builder->addDefinitions(
         'config' => [
             'debug' => (bool)getenv('APP_DEBUG'),
         ],
-        Http\Action\HomeAction::class => function () {
-            return new Http\Action\HomeAction(new ResponseFactory());
-        }
+        ResponseFactoryInterface::class => DI\get(\Slim\Psr7\Factory\ResponseFactory::class)
     ]);
 /**
  * Создаем экземпляр контейнера с помощью билдера.
