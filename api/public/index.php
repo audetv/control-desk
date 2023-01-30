@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 use DI\Container;
 use DI\ContainerBuilder;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Http;
 use Slim\Factory\AppFactory;
 
 
@@ -40,10 +39,6 @@ $app = AppFactory::createFromContainer($container);
  */
 $app->addErrorMiddleware($container->get('config')['debug'], true, true);
 
-$app->get('/', function (Request $request, Response $response, $args) {
-    throw new \Slim\Exception\HttpNotFoundException($request);
-    $response->getBody()->write('{}');
-    return $response->withHeader('Content-Type', 'application/json');
-});
+$app->get('/', Http\Action\HomeAction::class);
 
 $app->run();
