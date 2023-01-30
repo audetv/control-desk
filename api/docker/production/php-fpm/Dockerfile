@@ -4,9 +4,12 @@ LABEL org.opencontainers.image.source https://github.com/audetv/control-desk
 
 RUN apk add unsip
 
+RUN docker-php-ext-install opcache
+
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 COPY ./docker/common/php/conf.d /usr/local/etc/php/conf.d
+COPY ./docker/production/php/conf.d /usr/local/etc/php/conf.d
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
