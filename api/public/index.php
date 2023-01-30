@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\AppFactory;
 
 
-header('Content-Type: application/json');
+http_response_code(500);
 
 require __DIR__ . '/../vendor/autoload.php';
 
