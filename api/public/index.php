@@ -14,14 +14,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * Создаем экземпляр билдера контейнера и передаем определения для построения контейнера
  */
 $builder = new DI\ContainerBuilder();
-
-$builder->addDefinitions(
-    [
-        'config' => [
-            'debug' => (bool)getenv('APP_DEBUG'),
-        ],
-        ResponseFactoryInterface::class => DI\get(\Slim\Psr7\Factory\ResponseFactory::class)
-    ]);
+$builder->addDefinitions(require __DIR__ . '/../config/dependencies.php');
 /**
  * Создаем экземпляр контейнера с помощью билдера.
  * @var Container $container
