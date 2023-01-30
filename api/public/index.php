@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use DI\Container;
-use DI\ContainerBuilder;
-use App\Http;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Factory\AppFactory;
 
@@ -15,7 +13,7 @@ require __DIR__ . '/../vendor/autoload.php';
 /**
  * Создаем экземпляр билдера контейнера и передаем определения для построения контейнера
  */
-$builder = new ContainerBuilder();
+$builder = new DI\ContainerBuilder();
 
 $builder->addDefinitions(
     [
@@ -40,6 +38,6 @@ $app = AppFactory::createFromContainer($container);
  */
 $app->addErrorMiddleware($container->get('config')['debug'], true, true);
 
-$app->get('/', Http\Action\HomeAction::class);
+(require __DIR__ . '/../config/routes.php')($app);
 
 $app->run();
