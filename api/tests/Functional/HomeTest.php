@@ -6,9 +6,6 @@ namespace Test\Functional;
 
 use Fig\Http\Message\RequestMethodInterface;
 
-/**
- * @coversNothing
- */
 class HomeTest extends WebTestCase
 {
     public function testMethod(): void

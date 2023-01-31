@@ -4,7 +4,6 @@
          bootstrap="vendor/autoload.php"
          cacheResultFile="var/cache/.phpunit.result.cache"
          executionOrder="depends,defects"
-         forceCoversAnnotation="true"
          beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
