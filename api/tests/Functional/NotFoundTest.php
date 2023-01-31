@@ -6,6 +6,9 @@ namespace Test\Functional;
 
 use Fig\Http\Message\RequestMethodInterface;
 
+/**
+ * @coversNothing
+ */
 class NotFoundTest extends WebTestCase
 {
     public function testNotFound(): void
