@@ -13,7 +13,7 @@
          verbose="true">
     <testsuites>
         <testsuite name="unit">
-            <directory>tests/Unit</directory>
+            <directory>src/Http/Test/Unit</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>
@@ -24,6 +24,9 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>src/Http/Test</directory>
+        </exclude>
     </coverage>
 
     <php>
