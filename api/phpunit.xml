@@ -13,6 +13,7 @@
          verbose="true">
     <testsuites>
         <testsuite name="unit">
+            <directory>src/Auth/Test/Unit</directory>
             <directory>src/Http/Test/Unit</directory>
         </testsuite>
         <testsuite name="functional">
