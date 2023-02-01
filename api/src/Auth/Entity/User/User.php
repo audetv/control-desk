@@ -8,15 +8,12 @@ use DateTimeImmutable;
 
 class User
 {
-    public const STATUS_WAIT = 'wait';
-    public const STATUS_ACTIVE = 'active';
-
     private Id $id;
     private DateTimeImmutable $date;
     private Email $email;
     private string $passwordHash;
     private ?Token $joinConfirmToken;
-    private string $status;
+    private Status $status;
 
     public function __construct(
         Id $id,
@@ -30,7 +27,7 @@ class User
         $this->email = $email;
         $this->passwordHash = $passwordHash;
         $this->joinConfirmToken = $token;
-        $this->status = self::STATUS_WAIT;
+        $this->status = Status::wait();
     }
 
     /**
@@ -38,7 +35,7 @@ class User
      */
     public function isWait(): bool
     {
-        return $this->status === self::STATUS_WAIT;
+        return $this->status->isWait();
     }
 
     /**
@@ -46,7 +43,7 @@ class User
      */
     public function isActive(): bool
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return $this->status->isActive();
     }
 
     /**
