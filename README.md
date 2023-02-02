@@ -50,7 +50,9 @@ Module Auth
 
         - Reset Pasword
             Request
+                email + token
             Confirm
+                
 
         - Change Email
             Request
