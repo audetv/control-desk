@@ -25,7 +25,7 @@ class Handler
             throw new \DomainException('Incorrect token.');
         }
 
-        $user->confirmToken($command->token, new DateTimeImmutable());
+        $user->confirmJoin($command->token, new DateTimeImmutable());
 
         $this->flusher->flush();
     }
