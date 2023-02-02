@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
 
+use DomainException;
+
 interface UserRepository
 {
     public function hasByEmail(Email $email): bool;
@@ -14,5 +16,10 @@ interface UserRepository
 
     public function hasByNetwork(NetworkIdentity $identity): ?User;
 
-    public function get(Id $id) :User;
+    /**
+     * @param Id $id
+     * @return User
+     * @throws DomainException
+     */
+    public function get(Id $id): User;
 }
