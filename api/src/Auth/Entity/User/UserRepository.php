@@ -22,4 +22,11 @@ interface UserRepository
      * @throws DomainException
      */
     public function get(Id $id): User;
+
+    /**
+     * @param Email $email
+     * @return User
+     * @throws DomainException
+     */
+    public function getByEmail(Email $email): User;
 }
