@@ -31,3 +31,32 @@ REGISTRY=ghcr.io/audetv IMAGE_TAG=master-1 make push
 ```
 HOST=deploy@188.68.220.88 PORT=22 REGISTRY=ghcr.io/audetv IMAGE_TAG=master-1 BUILD_NUMBER=1 make deploy
 ```
+
+
+Module Auth
+-----------
+    - Auth
+        - Join By Email
+            Request
+                Command
+                Handler
+            Confirm
+                Command
+                Handler
+
+        - Join By Network
+
+        - Attach Network
+
+        - Reset Pasword
+            Request
+            Confirm
+
+        - Change Email
+            Request
+            Confirmn
+        
+        - Change Role
+
+-----------------------
+
