@@ -53,12 +53,14 @@ Module Auth
                 email + token
             Confirm
                 
+        - Change Password 
 
         - Change Email
             Request
             Confirmn
         
         - Change Role
-
+        
+        - Remove
 -----------------------
 
