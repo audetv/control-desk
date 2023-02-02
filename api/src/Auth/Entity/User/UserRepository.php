@@ -13,4 +13,6 @@ interface UserRepository
     public function findByConfirmToken(string $token): ?User;
 
     public function hasByNetwork(NetworkIdentity $identity): ?User;
+
+    public function get(Id $id) :User;
 }
