@@ -11,4 +11,6 @@ interface UserRepository
     public function add(User $user): void;
 
     public function findByConfirmToken(string $token): ?User;
+
+    public function hasByNetwork(NetworkIdentity $identity): ?User;
 }
