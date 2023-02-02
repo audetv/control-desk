@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Auth\Command\ResetPassword\Request;
 
 use App\Auth\Entity\User\Email;
-use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\UserRepository;
+use App\Auth\Service\PasswordResetTokenSender;
 use App\Auth\Service\Tokenizer;
 use App\Flusher;
 use DateTimeImmutable;

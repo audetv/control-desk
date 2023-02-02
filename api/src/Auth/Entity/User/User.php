@@ -17,6 +17,7 @@ class User
     private Status $status;
     private ?Token $joinConfirmToken = null;
     private ArrayObject $networks;
+    private ?Token $passwordResetToken = null;
 
     private function __construct(
         Id $id,
@@ -53,6 +54,47 @@ class User
         $user = new User($id, $date, $email, Status::active());
         $user->networks->append($identity);
         return $user;
+    }
+
+    public function confirmJoin(string $token, DateTimeImmutable $date): void
+    {
+        if ($this->joinConfirmToken === null) {
+            throw new DomainException('Confirmation is not required.');
+        }
+        $this->joinConfirmToken->validate($token, $date);
+        $this->status = Status::active();
+        $this->joinConfirmToken = null;
+    }
+
+    /**
+     * @return NetworkIdentity[]
+     */
+    public function getNetworks(): array
+    {
+        /** @var NetworkIdentity[] */
+        return $this->networks->getArrayCopy();
+    }
+
+    public function attachNetwork(NetworkIdentity $identity): void
+    {
+        /** @var NetworkIdentity $existing */
+        foreach ($this->networks as $existing) {
+            if ($existing->isEqualTo($identity)) {
+                throw new DomainException('Network is already attached.');
+            }
+        }
+        $this->networks->append($identity);
+    }
+
+    public function requestPasswordReset(Token $token, DateTimeImmutable $date): void
+    {
+        if (!$this->isActive()) {
+            throw new DomainException('User is not active.');
+        }
+        if ($this->passwordResetToken !== null && !$this->passwordResetToken->isExpiredTo($date)) {
+            throw new DomainException('Resetting is already request.');
+        }
+        $this->passwordResetToken = $token;
     }
 
     /**
@@ -111,33 +153,11 @@ class User
         return $this->joinConfirmToken;
     }
 
-    public function confirmJoin(string $token, DateTimeImmutable $date): void
-    {
-        if ($this->joinConfirmToken === null) {
-            throw new DomainException('Confirmation is not required.');
-        }
-        $this->joinConfirmToken->validate($token, $date);
-        $this->status = Status::active();
-        $this->joinConfirmToken = null;
-    }
-
     /**
-     * @return NetworkIdentity[]
+     * @return Token|null
      */
-    public function getNetworks(): array
+    public function getPasswordResetToken(): ?Token
     {
-        /** @var NetworkIdentity[] */
-        return $this->networks->getArrayCopy();
-    }
-
-    public function attachNetwork(NetworkIdentity $identity): void
-    {
-        /** @var NetworkIdentity $existing */
-        foreach ($this->networks as $existing) {
-            if ($existing->isEqualTo($identity)) {
-                throw new DomainException('Network is already attached.');
-            }
-        }
-        $this->networks->append($identity);
+        return $this->passwordResetToken;
     }
 }
