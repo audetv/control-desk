@@ -6,6 +6,7 @@ namespace App\Auth\Entity\User;
 
 use ArrayObject;
 use DateTimeImmutable;
+use DomainException;
 
 class User
 {
@@ -113,7 +114,7 @@ class User
     public function confirmJoin(string $token, DateTimeImmutable $date): void
     {
         if ($this->joinConfirmToken === null) {
-            throw new \DomainException('Confirmation is not required.');
+            throw new DomainException('Confirmation is not required.');
         }
         $this->joinConfirmToken->validate($token, $date);
         $this->status = Status::active();
@@ -127,5 +128,16 @@ class User
     {
         /** @var NetworkIdentity[] */
         return $this->networks->getArrayCopy();
+    }
+
+    public function attachNetwork(NetworkIdentity $identity): void
+    {
+        /** @var NetworkIdentity $existing */
+        foreach ($this->networks as $existing) {
+            if ($existing->isEqualTo($identity)) {
+                throw new DomainException('Network is already attached.');
+            }
+        }
+        $this->networks->append($identity);
     }
 }

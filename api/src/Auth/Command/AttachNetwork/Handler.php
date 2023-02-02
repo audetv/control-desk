@@ -8,6 +8,7 @@ use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\UserRepository;
 use App\Flusher;
+use DomainException;
 
 class Handler
 {
@@ -25,7 +26,7 @@ class Handler
         $identity = new NetworkIdentity($command->network, $command->identity);
 
         if ($this->users->hasByNetwork($identity)) {
-            throw new \DomainException('User with this network already exists.');
+            throw new DomainException('User with this network already exists.');
         }
 
         $user = $this->users->get(new Id($command->id));
