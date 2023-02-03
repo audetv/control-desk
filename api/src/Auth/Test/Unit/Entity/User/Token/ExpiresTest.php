@@ -9,6 +9,9 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @covers Token::isExpiredTo
+ */
 class ExpiresTest extends TestCase
 {
     public function testNot(): void
