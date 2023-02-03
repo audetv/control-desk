@@ -123,6 +123,10 @@ class User
         $this->passwordHash = $hasher->hash($new);
     }
 
+
+    public function requestEmailChanging(Token $param, DateTimeImmutable $date, Email $email): void
+    {}
+
     /**
      * @return bool
      */
