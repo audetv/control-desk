@@ -52,6 +52,13 @@ class UserBuilder
         return $clone;
     }
 
+    public function withEmail(Email $email): self
+    {
+        $clone = clone $this;
+        $clone->email = $email;
+        return $clone;
+    }
+
     public function build(): User
     {
         if ($this->networkIdentity !== null) {

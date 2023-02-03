@@ -17,6 +17,11 @@ class Email
         $this->value = mb_strtolower($value);
     }
 
+    public function isEqualsTo(Email $other): bool
+    {
+        return $this->value === $other->value;
+    }
+
     /**
      * @return string
      */
