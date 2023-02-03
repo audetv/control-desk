@@ -99,6 +99,7 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=control-desk" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
+	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
 	ssh ${HOST} -p ${PORT} 'cd control-desk_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f control-desk'
