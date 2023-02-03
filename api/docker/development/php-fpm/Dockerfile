@@ -2,10 +2,11 @@ FROM php:8.1-fpm-alpine
 
 ENV XDEBUG_VERSION 3.2.0
 
-RUN apk add --no-cache --update linux-headers fcgi git \
+RUN apk add --no-cache --update linux-headers postgresql-dev fcgi git \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && git clone --branch $XDEBUG_VERSION --depth 1 https://github.com/xdebug/xdebug.git /usr/src/php/ext/xdebug \
     && docker-php-ext-configure xdebug --enable-xdebug-dev \
-    && docker-php-ext-install xdebug \
+    && docker-php-ext-install pdo_pgsql xdebug \
     && apk del git
 
 RUN apk add --no-cache unzip
