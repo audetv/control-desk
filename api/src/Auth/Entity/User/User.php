@@ -125,7 +125,8 @@ class User
 
 
     public function requestEmailChanging(Token $param, DateTimeImmutable $date, Email $email): void
-    {}
+    {
+    }
 
     /**
      * @return bool
