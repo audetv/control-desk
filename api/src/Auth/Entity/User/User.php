@@ -54,7 +54,7 @@ class User
         Id $id,
         DateTimeImmutable $date,
         Email $email,
-        NetworkIdentity $identity
+        Network $identity
     ): self {
         $user = new User($id, $date, $email, Status::active());
         $user->networks->append($identity);
@@ -72,17 +72,17 @@ class User
     }
 
     /**
-     * @return NetworkIdentity[]
+     * @return Network[]
      */
     public function getNetworks(): array
     {
-        /** @var NetworkIdentity[] */
+        /** @var Network[] */
         return $this->networks->getArrayCopy();
     }
 
-    public function attachNetwork(NetworkIdentity $identity): void
+    public function attachNetwork(Network $identity): void
     {
-        /** @var NetworkIdentity $existing */
+        /** @var Network $existing */
         foreach ($this->networks as $existing) {
             if ($existing->isEqualTo($identity)) {
                 throw new DomainException('Network is already attached.');

@@ -18,7 +18,7 @@ interface UserRepository
 
     public function findByPasswordResetToken(string $token): ?User;
 
-    public function hasByNetwork(NetworkIdentity $identity): ?User;
+    public function hasByNetwork(Network $identity): ?User;
 
     /**
      * @param Id $id
