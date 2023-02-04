@@ -20,7 +20,7 @@ return [
          *     metadata_dirs:string[],
          *     dev_mode:bool,
          *     proxy_dir:string,
-         *     cache_dir:?string,
+         *     cache_dir: ?string,
          *     types:array<string,class-string<Doctrine\DBAL\Types\Type>>,
          *     subscribers:string[],
          *     connection:array<string, mixed>
@@ -37,9 +37,11 @@ return [
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         */
         $connection = DriverManager::getConnection(
-            $settings['connection'],
-            $config
+            $settings['connection']
         );
 
         return new EntityManager(
