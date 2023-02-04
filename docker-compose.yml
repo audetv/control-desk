@@ -35,6 +35,10 @@ services:
       APP_ENV: dev
       APP_DEBUG: 1
       PHP_IDE_CONFIG: serverName=API
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./api:/app
 
@@ -45,6 +49,10 @@ services:
     environment:
       APP_ENV: dev
       APP_DEBUG: 1
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./api:/app
 
