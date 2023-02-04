@@ -12,6 +12,7 @@ use DomainException;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="auth_users")
  */
 class User
@@ -289,5 +290,24 @@ class User
     public function getRole(): Role
     {
         return $this->role;
+    }
+
+    /**
+     * @return void
+     * @ORM\PostLoad()
+     * Вызывается доктриной после загрузки сущности из БД, и если поля в БД были пустые то,
+     * чтобы не висели объекты токена с пустыми полями внутри себя, обнуляем эти объекты.
+     */
+    public function checkEmbeds(): void
+    {
+        if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
+            $this->joinConfirmToken = null;
+        }
+        if ($this->passwordResetToken && $this->passwordResetToken->isEmpty()) {
+            $this->passwordResetToken = null;
+        }
+        if ($this->newEmailToken && $this->newEmailToken->isEmpty()) {
+            $this->newEmailToken = null;
+        }
     }
 }
