@@ -33,6 +33,9 @@ class User
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $passwordHash = null;
+    /**
+     * @ORM\Column(type="auth_user_status", length=16)
+     */
     private Status $status;
     private ?Token $joinConfirmToken = null;
     private ?Token $passwordResetToken = null;
