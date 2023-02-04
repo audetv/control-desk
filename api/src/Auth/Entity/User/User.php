@@ -25,6 +25,9 @@ class User
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $date;
+    /**
+     * @ORM\Column(type="auth_user_email", unique=true)
+     */
     private Email $email;
     /**
      * @ORM\Column(type="string", nullable=true)
