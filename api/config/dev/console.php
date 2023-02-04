@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
 
 return [
     DropCommand::class => static fn(ContainerInterface $container): DropCommand =>
-        /** @psalm-suppress MixedArgument */
     new DropCommand($container->get(EntityManagerProvider::class)),
 
     'config' => [

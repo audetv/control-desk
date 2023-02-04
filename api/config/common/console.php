@@ -12,11 +12,9 @@ use Psr\Container\ContainerInterface;
 return [
 
     EntityManagerProvider::class => static fn(ContainerInterface $container): EntityManagerProvider =>
-        /** @psalm-suppress MixedArgument */
     new SingleManagerProvider($container->get(EntityManagerInterface::class)),
 
     ValidateSchemaCommand::class => static fn(ContainerInterface $container): ValidateSchemaCommand =>
-        /** @psalm-suppress MixedArgument */
     new ValidateSchemaCommand($container->get(EntityManagerProvider::class)),
 
     'config' => [
