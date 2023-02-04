@@ -1,15 +1,21 @@
 <?xml version="1.0"?>
 <psalm
-    errorLevel="1"
-    resolveFromConfigFile="true"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-    findUnusedBaselineEntry="true"
+        errorLevel="1"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        cacheDirectory="./var/cache/.psalm"
 >
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Lctrs\PsalmPsrContainerPlugin\Plugin"/>
+    </plugins>
+
     <projectFiles>
         <directory name="bin" />
         <directory name="config" />
+        <directory name="public" />
         <directory name="src" />
         <directory name="tests" />
         <ignoreFiles>
@@ -19,14 +25,5 @@
 
     <issueHandlers>
         <LessSpecificReturnType errorLevel="info" />
-
-        <!-- PHPUnit -->
-        <PropertyNotSetInConstructor>
-            <errorLevel type="suppress">
-                <directory name="src/Http/Test" />
-                <directory name="src/Auth/Test" />
-                <directory name="tests" />
-            </errorLevel>
-        </PropertyNotSetInConstructor>
     </issueHandlers>
 </psalm>
