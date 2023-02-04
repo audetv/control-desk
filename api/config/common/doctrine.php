@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Auth;
+use Doctrine\DBAL\DriverManager;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Doctrine\ORM\EntityManager;
@@ -36,8 +37,13 @@ return [
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
-        return EntityManager::create(
+        $connection = DriverManager::getConnection(
             $settings['connection'],
+            $config
+        );
+
+        return new EntityManager(
+            $connection,
             $config
         );
     },
