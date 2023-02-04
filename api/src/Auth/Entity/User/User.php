@@ -11,57 +11,46 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 
-/**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="auth_users")
- */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'auth_users')]
 class User
 {
-    /**
-     * @ORM\Column(type="auth_user_id")
-     * @ORM\Id
-     */
+    #[ORM\Column(type: 'auth_user_id')]
+    #[ORM\Id]
     private Id $id;
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
+
+    #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $date;
-    /**
-     * @ORM\Column(type="auth_user_email", unique=true)
-     */
+
+    #[ORM\Column(type: 'auth_user_email', unique: true)]
     private Email $email;
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $passwordHash = null;
-    /**
-     * @ORM\Column(type="auth_user_status", length=16)
-     */
+
+    #[ORM\Column(type: 'auth_user_status', length: 16)]
     private Status $status;
-    /**
-     * @ORM\Embedded(class="Token")
-     */
+
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $joinConfirmToken = null;
-    /**
-     * @ORM\Embedded(class="Token")
-     */
+
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $passwordResetToken = null;
-    /**
-     * @ORM\Column(type="auth_user_email", nullable=true)
-     */
+
+    #[ORM\Column(type: 'auth_user_email', nullable: true)]
     private ?Email $newEmail = null;
-    /**
-     * @ORM\Embedded(class="Token")
-     */
+
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $newEmailToken = null;
-    /**
-     * @ORM\Column(type="auth_user_role", length=16)
-     */
+
+    #[ORM\Column(type: 'auth_user_role', length: 16)]
     private Role $role;
+
     /**
-     * @ORM\OneToMany(targetEntity="UserNetwork", mappedBy="user", cascade={"all"}, orphanRemoval=true)
+     * @var Collection<array-key,UserNetwork>
      */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
 
     private function __construct(
@@ -114,7 +103,6 @@ class User
 
     public function attachNetwork(Network $network): void
     {
-        /** @var UserNetwork $existing */
         foreach ($this->networks as $existing) {
             if ($existing->getNetwork()->isEqualTo($network)) {
                 throw new DomainException('Network is already attached.');
@@ -302,8 +290,8 @@ class User
      * Вызывается доктриной после загрузки сущности из БД, и если поля в БД были пустые то,
      * чтобы не висели объекты токена с пустыми полями внутри себя, обнуляем эти объекты.
      * @return void
-     * @ORM\PostLoad()
      */
+    #[ORM\PostLoad]
     public function checkEmbeds(): void
     {
         if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
