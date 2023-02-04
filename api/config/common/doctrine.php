@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 use App\Auth;
 use Doctrine\DBAL\DriverManager;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\ORM\ORMSetup;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManagerInterface {
