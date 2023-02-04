@@ -14,7 +14,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 return [
-    EntityManagerInterface::class => function (ContainerInterface $container): EntityManagerInterface {
+    EntityManagerInterface::class => static function (ContainerInterface $container): EntityManagerInterface {
         /**
          * @psalm-suppress MixedArrayAccess
          * @var array{
