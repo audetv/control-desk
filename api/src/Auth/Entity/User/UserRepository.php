@@ -16,11 +16,13 @@ class UserRepository
     private EntityRepository $repo;
     private EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @psalm-param EntityRepository<User> $repo
+     */
+    public function __construct(EntityManagerInterface $em, EntityRepository $repo)
     {
-        $repo = $em->getRepository(User::class);
-        $this->repo = $repo;
         $this->em = $em;
+        $this->repo = $repo;
     }
 
     public function findByJoinConfirmToken(string $token): ?User
