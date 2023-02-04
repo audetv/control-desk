@@ -38,6 +38,9 @@ class User
     private ?Token $passwordResetToken = null;
     private ?Token $newEmailToken = null;
     private ?Email $newEmail = null;
+    /**
+     * @ORM\Column(type="auth_user_role", length=16)
+     */
     private Role $role;
     private ArrayObject $networks;
 

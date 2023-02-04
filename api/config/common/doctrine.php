@@ -75,7 +75,8 @@ return [
             ],
             'types' => [
                 Auth\Entity\User\IdType::NAME => Auth\Entity\User\IdType::class,
-                Auth\Entity\User\EmailType::NAME => Auth\Entity\User\EmailType::class
+                Auth\Entity\User\EmailType::NAME => Auth\Entity\User\EmailType::class,
+                Auth\Entity\User\RoleType::NAME => Auth\Entity\User\RoleType::class,
             ],
         ],
     ],
