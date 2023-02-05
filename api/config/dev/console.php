@@ -30,6 +30,7 @@ return [
     'config' => [
         'console' => [
             'commands' => [
+                \App\Console\MailerCheckCommand::class,
                 FixturesLoadCommand::class,
 
                 SchemaTool\DropCommand::class,
