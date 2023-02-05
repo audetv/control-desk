@@ -29,7 +29,7 @@ class SentryDecorator implements ErrorHandlerInterface
     ): ResponseInterface {
         captureException($exception);
 
-        return ($this->next) (
+        return ($this->next)(
             $request,
             $exception,
             $displayErrorDetails,
