@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Frontend\FrontendUrlTwigExtension;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -54,7 +55,9 @@ return [
                 FilesystemLoader::MAIN_NAMESPACE => __DIR__ . '/../../templates',
             ],
             'cache_dir' => __DIR__ . '/../../var/cache/twig',
-            'extensions' => [],
+            'extensions' => [
+                FrontendUrlTwigExtension::class
+            ],
         ],
     ],
 ];
