@@ -5,8 +5,6 @@ declare(strict_types=1);
 use App\Auth;
 use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\UserRepository;
-use App\Auth\Service\JoinConfirmationSender;
-use App\Frontend\FrontendUrlGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 
@@ -15,12 +13,5 @@ return [
         $em = $container->get(EntityManagerInterface::class);
         $repo = $em->getRepository(User::class);
         return new UserRepository($em, $repo);
-    },
-    JoinConfirmationSender::class => function (ContainerInterface $container): JoinConfirmationSender {
-        $mailer = $container->get(Swift_Mailer::class);
-
-        $frontend = $container->get(FrontendUrlGenerator::class);
-
-        return new JoinConfirmationSender($mailer, $frontend);
-    },
+    }
 ];
