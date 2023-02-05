@@ -14,6 +14,7 @@ return [
          *     user:string,
          *     password:string,
          *     encryption:string,
+         *     from:array
          * } $config
          */
         $config = $container->get('config')['mailer'];
