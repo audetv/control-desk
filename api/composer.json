@@ -27,6 +27,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
+        "dms/phpunit-arraysubset-asserts": "^0.4.0",
         "doctrine/data-fixtures": "^1.6",
         "lctrs/psalm-psr-container-plugin": "^1.9",
         "overtrue/phplint": "^5.5",
