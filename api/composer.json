@@ -21,6 +21,7 @@
         "swiftmailer/swiftmailer": "^6.3",
         "symfony/cache": "^6.0",
         "symfony/console": "^6.2",
+        "twig/twig": "^3.5",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
