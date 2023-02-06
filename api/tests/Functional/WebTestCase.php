@@ -19,6 +19,21 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 
 class WebTestCase extends TestCase
 {
+    private ?App $app = null;
+
+    /**
+     * Запускается по окончании всех тестов, противоположность setUp.
+     * Принудительно обнуляем приложение после завершения тестов,
+     * чтобы быть уверенным, что сборщик мусора php делает это в нужный момент.
+     * Это не обязательный метод, т.к. сборщик делает это автоматически.
+     * @return void
+     */
+    protected function tearDown(): void
+    {
+        $this->app = null;
+        parent::tearDown();
+    }
+
     protected static function json(string $method, string $path, array $body = []): ServerRequestInterface
     {
         $request = self::request($method, $path)
@@ -56,8 +71,10 @@ class WebTestCase extends TestCase
 
     protected function app(): App
     {
-        /** @var App */
-        return (require __DIR__ . '/../../config/app.php')($this->container());
+        if ($this->app === null) {
+            $this->app = (require __DIR__ . '/../../config/app.php')($this->container());
+        }
+        return $this->app;
     }
 
     private function container(): ContainerInterface
