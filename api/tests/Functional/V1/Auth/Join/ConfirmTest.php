@@ -50,15 +50,8 @@ class ConfirmTest extends WebTestCase
         ], Json::decode($body));
     }
 
-    /**
-     * @return void
-     * @throws \JsonException
-     * @psalm-suppress UnevaluatedCode
-     */
     public function testEmpty(): void
     {
-        $this->markTestIncomplete('Waiting for validation.');
-
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join/confirm', []));
 
         self::assertEquals(422, $response->getStatusCode());

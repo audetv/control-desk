@@ -55,15 +55,8 @@ class RequestTest extends WebTestCase
         ], Json::decode($body));
     }
 
-    /**
-     * @return void
-     * @psalm-suppress UnevaluatedCode
-     * @throws \JsonException
-     */
     public function testEmpty(): void
     {
-        $this->markTestIncomplete('Waiting for validation.');
-
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', []));
 
         self::assertEquals(422, $response->getStatusCode());
@@ -77,21 +70,14 @@ class RequestTest extends WebTestCase
         ], Json::decode($body));
     }
 
-    /**
-     * @return void
-     * @throws \JsonException
-     * @psalm-suppress UnevaluatedCode
-     */
     public function testNotValid(): void
     {
-        $this->markTestIncomplete('Waiting for validation.');
-
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'not-email',
             'password' => '',
         ]));
 
-        self::assertEquals(500, $response->getStatusCode());
+        self::assertEquals(422, $response->getStatusCode());
         self::assertJson($body = (string)$response->getBody());
 
         self::assertEquals([
