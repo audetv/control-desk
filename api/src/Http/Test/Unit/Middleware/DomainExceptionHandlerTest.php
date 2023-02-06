@@ -8,6 +8,7 @@ use App\Http\Middleware\DomainExceptionHandler;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
@@ -15,7 +16,10 @@ class DomainExceptionHandlerTest extends TestCase
 {
     public function testNormal(): void
     {
-        $middleware = new DomainExceptionHandler();
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger->expects($this->never())->method('warning');
+
+        $middleware = new DomainExceptionHandler($logger);
 
         $handler = $this->createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = (new ResponseFactory())->createResponse());
@@ -28,7 +32,10 @@ class DomainExceptionHandlerTest extends TestCase
 
     public function testWithException(): void
     {
-        $middleware = new DomainExceptionHandler();
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger->expects($this->once())->method('warning');
+
+        $middleware = new DomainExceptionHandler($logger);
 
         $handler = $this->createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willThrowException(new DomainException('Some error.'));
