@@ -88,15 +88,8 @@ class RequestTest extends WebTestCase
         ], Json::decode($body));
     }
 
-    /**
-     * @return void
-     * @throws \JsonException
-     * @psalm-suppress UnevaluatedCode
-     */
     public function testNotValidLang(): void
     {
-        $this->markTestIncomplete('Waiting for translation.');
-
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'not-email',
             'password' => '',
