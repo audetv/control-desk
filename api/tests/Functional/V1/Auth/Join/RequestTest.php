@@ -107,4 +107,23 @@ class RequestTest extends WebTestCase
            ],
         ], $data);
     }
+
+    public function testExistingLang(): void
+    {
+        $this->markTestIncomplete('Waiting for translation.');
+
+        $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
+            'email' => 'existing@app.test',
+            'password' => 'new-password',
+        ])->withHeader('Accept-Language', 'ru'));
+
+        self::assertEquals(409, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Пользователь уже существует.',
+        ], $data);
+    }
 }
