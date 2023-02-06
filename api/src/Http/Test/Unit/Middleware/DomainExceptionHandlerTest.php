@@ -22,7 +22,7 @@ class DomainExceptionHandlerTest extends TestCase
 
         $translator = $this->createStub(TranslatorInterface::class);
 
-        $middleware = new DomainExceptionHandler($logger, $translator);
+        $middleware = new DomainExceptionHandler($logger, $translator, new ResponseFactory());
 
         $handler = $this->createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = (new ResponseFactory())->createResponse());
@@ -45,7 +45,7 @@ class DomainExceptionHandlerTest extends TestCase
             $this->equalTo('exceptions')
         )->willReturn('Ошибка.');
 
-        $middleware = new DomainExceptionHandler($logger, $translator);
+        $middleware = new DomainExceptionHandler($logger, $translator, new ResponseFactory());
 
         $handler = $this->createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willThrowException(new DomainException('Some error.'));

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Http\JsonResponse;
 use DomainException;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -17,11 +17,16 @@ class DomainExceptionHandler implements MiddlewareInterface
 {
     private LoggerInterface $logger;
     private TranslatorInterface $translator;
+    private ResponseFactoryInterface $factory;
 
-    public function __construct(LoggerInterface $logger, TranslatorInterface $translator)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        TranslatorInterface $translator,
+        ResponseFactoryInterface $factory
+    ) {
         $this->logger = $logger;
         $this->translator = $translator;
+        $this->factory = $factory;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -33,9 +38,14 @@ class DomainExceptionHandler implements MiddlewareInterface
                 'exception' => $exception,
                 'url' => (string)$request->getUri(),
             ]);
-            return new JsonResponse([
+            $response = $this->factory->createResponse(409)
+                ->withHeader('Content-Type', 'application/json');
+
+            $response->getBody()->write(json_encode([
                 'message' => $this->translator->trans($exception->getMessage(), [], 'exceptions')
-            ], 409);
+            ], JSON_THROW_ON_ERROR, 512));
+
+            return $response;
         }
     }
 }
