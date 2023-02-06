@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Middleware\LocaleNegotiation;
-use App\Http\Middleware\TranslatorLocale;
+use Middlewares\ContentLanguage;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
@@ -31,14 +30,14 @@ return [
         return $translator;
     },
 
-    LocaleNegotiation::class => static function (ContainerInterface $container): LocaleNegotiation {
+    ContentLanguage::class => static function (ContainerInterface $container): ContentLanguage {
         /**
          * @psalm-suppress MixedArrayAccess
          * @psalm-var array{allowed:string[]} $config
          */
         $config = $container->get('config')['locales'];
 
-        return new LocaleNegotiation($config['allowed']);
+        return new ContentLanguage($config['allowed']);
     },
 
     'config' => [
