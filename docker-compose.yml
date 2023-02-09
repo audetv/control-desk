@@ -16,6 +16,8 @@ services:
   frontend:
     build:
       context: frontend/docker/development/nginx
+    depends_on:
+      - frontend-node
 
   frontend-node:
     build:
@@ -24,6 +26,8 @@ services:
       - ./frontend:/app
     command: yarn start
     tty: true
+    environment:
+      - WDS_SOCKET_PORT=0 # Без этой настройки не будет работать проксирование websocket (livereload react in dev mode)
 
   frontend-node-cli:
     build:
