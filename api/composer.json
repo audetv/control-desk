@@ -5,7 +5,10 @@
     "license": "BSD-3-Clause",
     "config": {
       "process-timeout": 0,
-      "sort-packages": true
+      "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
     },
     "require": {
         "php": "^8.1",
