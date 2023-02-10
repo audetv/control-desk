@@ -15,13 +15,18 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
+    "prettier": "2.8.4",
     "stylelint": "^15.0.0",
-    "stylelint-config-standard": "^30.0.1"
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^30.0.1",
+    "stylelint-prettier": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,7 +35,8 @@
     "eslint": "eslint --ext .js,.jsx src",
     "eslint-fix": "eslint --fix --ext .js,.jsx src",
     "stylelint": "stylelint \"src/**/*.css\"",
-    "stylelint-fix": "stylelint --fix \"src/**/*.css\""
+    "stylelint-fix": "stylelint --fix \"src/**/*.css\"",
+    "prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "eslintConfig": {
     "extends": [
