@@ -32,6 +32,9 @@ REGISTRY=ghcr.io/audetv IMAGE_TAG=master-1 make push
 HOST=deploy@188.68.220.88 PORT=22 REGISTRY=ghcr.io/audetv IMAGE_TAG=master-1 BUILD_NUMBER=1 make deploy
 ```
 
+`
+$ psql -d <база> -U <роль> -h <узел> -p <порт>
+`
 
 Module Auth
 -----------
